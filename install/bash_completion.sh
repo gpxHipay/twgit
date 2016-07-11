@@ -35,7 +35,7 @@ function _twgit () {
     local cur="${COMP_WORDS[COMP_CWORD]}"
 
     if [ "$COMP_CWORD" = "1" ]; then
-        local opts="clean feature demo help init hotfix release tag update"
+        local opts="clean feature demo help init hotfix release tag update commit"
         COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
 
     elif [ "$COMP_CWORD" = "2" ]; then
