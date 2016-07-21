@@ -1374,11 +1374,11 @@ function commit () {
 
     textCommit=${message// /_}
 
-    if has "$current_branch" "stable"; then
+    if has "$(get_current_branch)" "stable"; then
         die "This command is forbidden for the branch"
     fi
 
-    if has "$current_branch" "master"; then
+    if has "$(get_current_branch)" "master"; then
         die "This command is forbidden for the branch"
     fi
 
