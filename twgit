@@ -137,6 +137,7 @@ function usage () {
     CUI_displayMsg help_detail '<b>tag</b>       Manage your tags.'
     echo
     CUI_displayMsg help_detail '<b>clean</b>     Help to remove branches no longer tracked.'
+    CUI_displayMsg help_detail '<b>commit</b>    Commit to local branche with a smart message.'
     CUI_displayMsg help_detail '<b>init <tagname> [<url>]</b>'
     CUI_displayMsg help_detail '          Initialize git repository for twgit:'
     CUI_displayMsg help_detail '            – git init if necessary'
@@ -196,6 +197,8 @@ function main () {
             clean_branches; exit 0
         elif [ "$command" = 'init' ]; then
             init "$@"; exit 0
+        elif [ "$command" = 'commit' ]; then
+            commit "$@"; exit 0
         elif [ ! -e "$command_file" ]; then
             CUI_displayMsg error "Command not found: '$command'"
             usage
