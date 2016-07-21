@@ -12,20 +12,20 @@ _twgit() {
 
     case $state in
         (command)
-            compadd "$@" clean feature demo help init hotfix release tag update
+            compadd "$@" clean feature demo help init hotfix release tag update commit
             ;;
         (action)
             case $words[2] in
                 (clean)     ret=0
                             ;;
                 (feature)   
-                            compadd "$@" committers help list merge-into-release merge-into-hotfix migrate push remove start status what-changed
+                            compadd "$@" committers help list merge-into-release merge-into-hotfix migrate push remove start startFrom status what-changed
                             ;;
-                (demo)      compadd "$@" help list merge-feature push remove start status
+                (demo)      compadd "$@" help list merge-feature update-features merge-demo push remove start status
                             ;;
                 (hotfix)    compadd "$@" finish help list push remove start
                             ;;
-                (release)   compadd "$@" committers finish help list push remove reset start
+                (release)   compadd "$@" committers finish merge-demo help list push remove reset start
                             ;;
                 (tag)       compadd "$@" help list
                             ;;

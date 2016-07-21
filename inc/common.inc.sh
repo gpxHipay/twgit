@@ -1203,7 +1203,7 @@ function alert_old_branch () {
         msg="${msg} not merged into this branch:"
         [ "$nb_tags_no_merged" -eq "$TWGIT_MAX_RETRIEVE_TAGS_NOT_MERGED" ] && msg="${msg} at least"
         msg="${msg} $(displayInterval "$tags_not_merged")."
-        [ "$2" = 'with-help' ] && msg="${msg} If need be: git merge --no-ff $(get_last_tag), then: git push $TWGIT_ORIGIN $branch"
+        [ "$2" = 'with-help' ] && msg="${msg} If need be: git merge --no-ff $(get_last_tag), then: twgit feature push $TWGIT_ORIGIN $branch"
         CUI_displayMsg warning "$msg"
     fi
 }
@@ -1363,6 +1363,37 @@ function convertList2CSV () {
     done
     echo ${row:1}
 }
+
+##
+# Git commit for Twgit:
+#
+# @param string $1 message of commit.
+#
+function commit () {
+    local message="$(get_current_branch)_:_$1"
+
+    textCommit=${message// /_}
+
+    if has "$(get_current_branch)" "stable"; then
+        die "This command is forbidden for the branch"
+    fi
+
+    if has "$(get_current_branch)" "master"; then
+        die "This command is forbidden for the branch"
+    fi
+
+    exec_git_command "git status" "Error while git status!"
+
+    echo -n $(CUI_displayMsg question "Do you want to commit this files ? [Y/N] "); read answer
+                [ "$answer" != "Y" ] && [ "$answer" != "y" ] && die 'Commit aborted!'
+
+    exec_git_command "git add --all"
+
+    exec_git_command "git commit --message=$textCommit" "Could not commit !"
+
+
+}
+
 
 ##
 # Propose de supprimer une à une les branches qui ne sont plus trackées.
