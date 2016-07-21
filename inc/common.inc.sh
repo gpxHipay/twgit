@@ -1365,6 +1365,37 @@ function convertList2CSV () {
 }
 
 ##
+# Git commit for Twgit:
+#
+# @param string $1 message of commit.
+#
+function commit () {
+    local message="$(get_current_branch)_:_$1"
+
+    textCommit=${message// /_}
+
+    if has "$(get_current_branch)" "stable"; then
+        die "This command is forbidden for the branch"
+    fi
+
+    if has "$(get_current_branch)" "master"; then
+        die "This command is forbidden for the branch"
+    fi
+
+    exec_git_command "git status" "Error while git status!"
+
+    echo -n $(CUI_displayMsg question "Do you want to commit this files ? [Y/N] "); read answer
+                [ "$answer" != "Y" ] && [ "$answer" != "y" ] && die 'Commit aborted!'
+
+    exec_git_command "git add --all"
+
+    exec_git_command "git commit --message=$textCommit" "Could not commit !"
+
+
+}
+
+
+##
 # Propose de supprimer une à une les branches qui ne sont plus trackées.
 #
 function clean_branches () {
