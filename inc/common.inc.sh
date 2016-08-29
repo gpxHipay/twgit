@@ -1370,6 +1370,11 @@ function convertList2CSV () {
 # @param string $1 message of commit.
 #
 function commit () {
+    if [ -z "$1" ]
+        then
+        echo "No message supplied"
+        exit
+    fi
     local message="$(get_current_branch)_:_$1"
 
     textCommit=${message// /_}
