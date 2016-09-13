@@ -6,7 +6,7 @@ ROOT_DIR=$(pwd)
 CONF_DIR="${ROOT_DIR}/conf"
 INSTALL_DIR="${ROOT_DIR}/install"
 
-USER_NAME=$(logname)
+USER_NAME=$LOGNAME
 USER_HOME=$(sudo -u ${USER_NAME} -H sh -c 'echo "$HOME"')
 
 CURRENT_SHELL=$(if [ ! -z $ZSH_NAME ]; then echo 'zsh'; else echo 'bash'; fi)
